@@ -1,4 +1,5 @@
 import React from 'react';
+import {Provider} from 'react-redux';
 import {
   SafeAreaView,
   StatusBar,
@@ -7,15 +8,18 @@ import {
 } from 'react-native';
 
 import RootNavigation from './src/navigation/root-navigation';
+import store from './src/store/reducers';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <RootNavigation />
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <RootNavigation />
+      </SafeAreaView>
+    </Provider>
   );
 };
 
