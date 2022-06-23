@@ -1,13 +1,34 @@
-import {IProgramsReducer} from '../reducers/programsReducer';
+import {IPosts, IProgramsReducer} from '../reducers/programsReducer';
 
-export const FETCH_PROGRAMS = 'FETCH_PROGRAMS';
-export const SUCCESS_PROGRAMS = 'SUCCESS_PROGRAMS';
-export const FAILURE_PROGRAMS = 'FAILURE_PROGRAMS';
-export const fetchPrograms = () => ({
-  type: FETCH_PROGRAMS,
+export const FETCH_POSTS = 'FETCH_POSTS';
+export const SUCCESS_POSTS = 'SUCCESS_POSTS';
+export const fetchPosts = () => ({
+  type: FETCH_POSTS,
 });
 
-export const successPrograms = (data: Array<IProgramsReducer>) => ({
-  type: SUCCESS_PROGRAMS,
+export const successPosts = (data: Array<IProgramsReducer>) => ({
+  type: SUCCESS_POSTS,
+  data,
+});
+
+export const FETCH_COMMENTS = 'FETCH_COMMENTS';
+export const SUCCESS_COMMENTS = 'SUCCESS_COMMENTS';
+export const FAILURE_COMMENTS = 'FAILURE_COMMENTS';
+export const LOAD = 'LOAD';
+export const loader = (data: boolean) => ({
+  type: LOAD,
+  data,
+});
+export const fetchComents = (data: IPosts) => ({
+  type: FETCH_COMMENTS,
+  data,
+});
+export const successComments = (data: Array<any>) => ({
+  type: SUCCESS_COMMENTS,
+  data,
+});
+
+export const failureComments = (data: string) => ({
+  type: FAILURE_COMMENTS,
   data,
 });
