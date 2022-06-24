@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
+  SafeAreaView,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {isLoad, logOut} from '../../store/actions/authActions';
@@ -65,7 +66,7 @@ export const HomeScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {load ? (
         <ActivityIndicator size="large" color="#00ff00" />
       ) : (
@@ -103,7 +104,7 @@ export const HomeScreen = () => {
           />
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#508cef80',
   },
   card: {
     width: calcWidth(330),

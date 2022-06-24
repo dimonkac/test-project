@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  SafeAreaView,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {SimpleTextInput} from '../../components/input';
@@ -53,7 +53,7 @@ export const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text>Login screen</Text>
       <TouchableOpacity>
         <Text>log in</Text>
@@ -93,7 +93,7 @@ export const LoginScreen = () => {
           )}
         </TouchableOpacity>
       ) : null}
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#508cef80',
   },
   input: {
     width: '60%',

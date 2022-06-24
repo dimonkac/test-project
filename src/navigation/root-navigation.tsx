@@ -1,12 +1,12 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {HomeScreen} from '../screens/HomeScreen';
-import {LoginScreen} from '../screens/LoginScreen';
+import DashboardStack from './dashboardStack';
+import SigningStack from './signingStack';
 
 const RootNavigation = () => {
   const {authorized} = useSelector((state: any) => state.authReducer);
 
-  return !authorized ? <LoginScreen /> : <HomeScreen />;
+  return !authorized ? <SigningStack /> : <DashboardStack />;
 };
 
 export default RootNavigation;
