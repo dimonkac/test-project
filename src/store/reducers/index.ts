@@ -4,12 +4,13 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from '../sagas';
 import authReducer, {IAuthReducer} from './authResucer';
-import mockUserReducer from './mockUsers';
+import mockUserReducer, {IUsers} from './mockUsers';
 import programsReducer, {IProgramsReducer} from './programsReducer';
 
 export interface IRootReducer {
   programsReducer: IProgramsReducer;
   authReducer: IAuthReducer;
+  mockUserReducer: Array<IUsers>;
 }
 
 const rootReducer = combineReducers({

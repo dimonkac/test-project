@@ -1,6 +1,3 @@
-// interface IUsers {
-//   users: Array<IUser>;
-// }
 export interface IUsers {
   email: string;
   password: string;

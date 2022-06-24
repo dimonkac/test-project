@@ -13,29 +13,62 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {isLoad, logOut} from '../../store/actions/authActions';
-import {fetchComents, fetchPosts} from '../../store/actions/programsActions';
+import {
+  failureComments,
+  failurePosts,
+  fetchComents,
+  fetchPosts,
+} from '../../store/actions/programsActions';
+import {IRootReducer} from '../../store/reducers';
 import {IPosts} from '../../store/reducers/programsReducer';
 import {calcHeight, calcWidth} from '../../utils/dimensions';
 
 export const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
-  const {posts, coments, errorMesage} = useSelector(
-    (state: any) => state.programsReducer,
+  const {posts, coments, errorMesageComments, errorMesagePosts} = useSelector(
+    (state: IRootReducer) => state.programsReducer,
   );
-  const {load} = useSelector((state: any) => state.authReducer);
+  const {load} = useSelector((state: IRootReducer) => state.authReducer);
   useEffect(() => {
     dispatch(fetchPosts());
     dispatch(isLoad(true));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    if (errorMesage) {
-      Alert.alert(errorMesage);
+    if (errorMesageComments) {
+      Alert.alert(
+        'error request',
+        `${errorMesageComments}`,
+        [
+          {
+            text: 'OK',
+            onPress: () => dispatch(failureComments(null)),
+          },
+        ],
+        {cancelable: false},
+      );
       show();
     }
+    if (errorMesagePosts) {
+      Alert.alert(
+        'error request',
+        `${errorMesagePosts}`,
+        [
+          {text: 'Cancel', onPress: () => console.log('cancel')},
+          {
+            text: 'OK',
+            onPress: () => {
+              dispatch(fetchPosts());
+              dispatch(failurePosts(null));
+            },
+          },
+        ],
+        {cancelable: false},
+      );
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [errorMesage]);
+  }, [errorMesageComments, errorMesagePosts]);
 
   const showComment = (item: IPosts) => {
     dispatch(fetchComents(item));
@@ -82,7 +115,7 @@ export const HomeScreen = () => {
                   <FlatList
                     data={coments}
                     renderItem={renderComments}
-                    keyExtractor={item => item.id}
+                    keyExtractor={(item: any) => item.id}
                   />
                 </View>
               </TouchableWithoutFeedback>
@@ -100,7 +133,7 @@ export const HomeScreen = () => {
           <FlatList
             data={posts}
             renderItem={renderItem}
-            keyExtractor={item => item.id}
+            keyExtractor={(item: any) => item.id}
           />
         </>
       )}

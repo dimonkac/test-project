@@ -15,13 +15,15 @@ import {
   setEmail,
   setPassword,
 } from '../../store/actions/authActions';
+import {IRootReducer} from '../../store/reducers';
+import { IUsers } from '../../store/reducers/mockUsers';
 
 export const LoginScreen = () => {
   const dispatch = useDispatch();
   const {email, password, load} = useSelector(
-    (state: any) => state.authReducer,
+    (state: IRootReducer) => state.authReducer,
   );
-  const users = useSelector((state: any) => state.mockUserReducer);
+  const users = useSelector((state: IRootReducer) => state.mockUserReducer);
 
   const validatePass = (pass: string): boolean => {
     return pass.length < 6;
@@ -39,8 +41,8 @@ export const LoginScreen = () => {
     setValidPass(validatePass(password));
     dispatch(isLoad(true));
     const checkUser = users
-      .filter((user: any) => user.email === email)
-      .find((user: any) => user.password === password);
+      .filter((user: IUsers) => user.email === email)
+      .find((user: IUsers) => user.password === password);
     if (checkUser) {
       setTimeout(() => {
         dispatch(isLoad(false));

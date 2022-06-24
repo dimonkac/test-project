@@ -2,12 +2,17 @@ import {IPosts, IProgramsReducer} from '../reducers/programsReducer';
 
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const SUCCESS_POSTS = 'SUCCESS_POSTS';
+export const FAILURE_POSTS = 'FAILURE_POSTS';
 export const fetchPosts = () => ({
   type: FETCH_POSTS,
 });
 
 export const successPosts = (data: Array<IProgramsReducer>) => ({
   type: SUCCESS_POSTS,
+  data,
+});
+export const failurePosts = (data: string | null) => ({
+  type: FAILURE_POSTS,
   data,
 });
 
@@ -28,7 +33,7 @@ export const successComments = (data: Array<any>) => ({
   data,
 });
 
-export const failureComments = (data: string) => ({
+export const failureComments = (data: string | null) => ({
   type: FAILURE_COMMENTS,
   data,
 });

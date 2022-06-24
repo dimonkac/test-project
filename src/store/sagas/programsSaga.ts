@@ -2,7 +2,6 @@ import {all, put, takeLatest} from 'redux-saga/effects';
 import * as actions from '../actions/programsActions';
 import axios from 'axios';
 import {isLoad} from '../actions/authActions';
-import {Alert} from 'react-native';
 import {IComent} from '../reducers/programsReducer';
 
 export function* programsSaga() {
@@ -17,17 +16,8 @@ export function* programsSaga() {
     }
   } catch (error) {
     yield put(isLoad(false));
-    function* requst() {
-      yield put(actions.fetchPosts());
-    }
-    Alert.alert('error request', 'Please try again.', [
-      {
-        text: 'repeat request',
-        onPress: () => {
-          requst();
-        },
-      },
-    ]);
+    // @ts-ignore
+    yield put(actions.failurePosts(error.message));
     console.log(error);
   }
 }

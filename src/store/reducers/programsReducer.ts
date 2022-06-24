@@ -22,7 +22,8 @@ export interface IComent {
 export interface IProgramsReducer {
   posts: Array<IPosts> | null;
   coments: Array<IComent> | null;
-  errorMesage: string | null;
+  errorMesageComments: string | null;
+  errorMesagePosts: string | null;
   loadProgram: boolean;
 }
 
@@ -30,7 +31,8 @@ const initialState: IProgramsReducer = {
   posts: [],
   coments: [],
   loadProgram: false,
-  errorMesage: null,
+  errorMesageComments: null,
+  errorMesagePosts: null,
 };
 
 const programsReducer = (state = initialState, action: IAction) => {
@@ -39,6 +41,12 @@ const programsReducer = (state = initialState, action: IAction) => {
       return {
         ...state,
         posts: action.data,
+      };
+    }
+    case types.FAILURE_POSTS: {
+      return {
+        ...state,
+        errorMesagePosts: action.data,
       };
     }
     case types.LOAD: {
@@ -57,7 +65,7 @@ const programsReducer = (state = initialState, action: IAction) => {
     case types.FAILURE_COMMENTS: {
       return {
         ...state,
-        errorMesage: action.data,
+        errorMesageComments: action.data,
       };
     }
     default:
