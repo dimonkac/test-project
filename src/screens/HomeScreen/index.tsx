@@ -1,3 +1,4 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack/lib/typescript/src/types';
 import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
@@ -12,6 +13,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import {RootStackParamList} from '../../navigation/root-navigation';
 import {isLoad, logOut} from '../../store/actions/authActions';
 import {
   failureComments,
@@ -23,7 +25,9 @@ import {IRootReducer} from '../../store/reducers';
 import {IPosts} from '../../store/reducers/programsReducer';
 import {calcHeight, calcWidth} from '../../utils/dimensions';
 
-export const HomeScreen = () => {
+type homeScreenProp = NativeStackScreenProps<RootStackParamList>;
+
+export const HomeScreen = ({navigation}: homeScreenProp) => {
   const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
   const {posts, coments, errorMesageComments, errorMesagePosts} = useSelector(
@@ -126,6 +130,7 @@ export const HomeScreen = () => {
               style={styles.buttonLogout}
               onPress={() => {
                 dispatch(logOut());
+                navigation.navigate('LoginScreen');
               }}>
               <Text>log out</Text>
             </TouchableOpacity>
@@ -158,13 +163,17 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     width: 400,
-    height: 20,
+    height: 26,
   },
   buttonLogout: {
     position: 'absolute',
     top: 0,
     right: calcWidth(16),
     marginBottom: 10,
+    padding: 2,
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: '#507cef80',
   },
   modal: {
     width: calcWidth(350),

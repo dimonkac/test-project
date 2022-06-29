@@ -1,3 +1,4 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack/lib/typescript/src/types';
 import React, {useState} from 'react';
 import {
   ActivityIndicator,
@@ -9,6 +10,7 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {SimpleTextInput} from '../../components/input';
+import {RootStackParamList} from '../../navigation/root-navigation';
 import {
   isLoad,
   setAuthorized,
@@ -16,10 +18,13 @@ import {
   setPassword,
 } from '../../store/actions/authActions';
 import {IRootReducer} from '../../store/reducers';
-import { IUsers } from '../../store/reducers/mockUsers';
+import {IUsers} from '../../store/reducers/mockUsers';
 
-export const LoginScreen = () => {
+type logiScreenProp = NativeStackScreenProps<RootStackParamList>;
+
+export const LoginScreen = ({navigation}: logiScreenProp) => {
   const dispatch = useDispatch();
+  // const navigation = useNavigation<logiScreenProp>();
   const {email, password, load} = useSelector(
     (state: IRootReducer) => state.authReducer,
   );
@@ -47,6 +52,7 @@ export const LoginScreen = () => {
       setTimeout(() => {
         dispatch(isLoad(false));
         dispatch(setAuthorized());
+        navigation.navigate('HomeScreen');
       }, 1000);
     } else {
       Alert.alert('user not found');
